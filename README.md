@@ -21,21 +21,21 @@ A modern e-commerce website built using **React.js** and **Tailwind CSS**, fetch
 
 ## 📁 Project Structure
 
-src/
-│
-├── components/
-│ ├── Navbar.jsx
-│ ├── FilterBar.jsx
-│ ├── ProductCard.jsx
-│ └── Loader.jsx
-│
-├── pages/
-│ ├── Home.jsx
-│ ├── Cart.jsx
-│ └── ProductDetails.jsx
-│
-├── App.jsx
-└── index.js
+src/                                                                                                                                 
+│                                                                                                                                    
+├── components/                                                                                                                      
+│ ├── Navbar.jsx                                                                                                                     
+│ ├── FilterBar.jsx                                                                                                                  
+│ ├── ProductCard.jsx                                                                                                                
+│ └── Loader.jsx                                                                                                                     
+│                                                                                                                                    
+├── pages/                                                                                                                           
+│ ├── Home.jsx                                                                                                                       
+│ ├── Cart.jsx                                                                                                                       
+│ └── ProductDetails.jsx                                                                                                             
+│                                                                                                                                    
+├── App.jsx                                                                                                                          
+└── index.js                                                                                                                         
 
 # API Reference
 All product data is fetched from:
