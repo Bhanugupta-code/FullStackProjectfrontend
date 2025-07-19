@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-const FilterBar = ({ itemList }) => {
+const FilterBar = ({ itemList, data }) => {
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [sortFilter, setsortFilter] = useState([]);
   useEffect(() => {
@@ -64,7 +64,7 @@ const FilterBar = ({ itemList }) => {
           </div>
         </div>
       </div>
-      <ProductCard categoryFilter={categoryFilter} />
+      <ProductCard categoryFilter={categoryFilter} data={data} />
     </>
   );
 };

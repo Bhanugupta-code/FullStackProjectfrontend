@@ -6,10 +6,10 @@ const ProductDetails = () => {
   const product = location.state?.data;
   const navigate = useNavigate();
   const cartHandler = (product) => {
-    navigate("/cart",{
-        state: {product},
-    })
-  }
+    navigate("/cart", {
+      state: { product },
+    });
+  };
   return (
     <div className="container my-10 mx-auto bg-gray-300 rounded-xl shadow-md">
       <div className="flex flex-col md:flex-row gap-6 px-8 py-6 w-full">
@@ -46,7 +46,10 @@ const ProductDetails = () => {
             </span>
           </div>
 
-          <button onClick={()=>cartHandler(product)} className="mt-4 px-6 py-2 hover:cursor-pointer bg-gray-900 text-white rounded hover:bg-gray-800">
+          <button
+            onClick={() => cartHandler(product)}
+            className="mt-4 px-6 py-2 hover:cursor-pointer bg-gray-900 text-white rounded hover:bg-gray-800"
+          >
             Add to Cart
           </button>
         </div>

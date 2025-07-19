@@ -10,6 +10,7 @@ import Loader from "./components/Loader";
 const App = () => {
   const [itemList, setItemlist] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchedresults, setsearchedresults] = useState([]);
 
   useEffect(() => {
     const timeout = setTimeout(() => setLoading(false), 1000);
@@ -34,9 +35,14 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar itemList={itemList} />
+      <Navbar itemList={itemList} setsearchedresults={setsearchedresults} />
       <Routes>
-        <Route path="/" element={<Home itemList={itemList} />} />
+        <Route
+          path="/"
+          element={
+            <Home itemList={itemList} searchedresults={searchedresults} />
+          }
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/productdetails" element={<ProductDetails />} />
       </Routes>

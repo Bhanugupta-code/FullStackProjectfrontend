@@ -63,6 +63,14 @@ const Cart = () => {
     });
   };
 
+  const OrderHandler = () => {
+    if (cartProducts.length < 1) {
+      alert("You have no orders. Plaese place some orders.");
+    } else {
+      alert("Order Successfully.");
+    }
+  };
+
   const removeItem = (id) => {
     const updatedCart = cartProducts.filter((p) => p.id !== id);
     const { [id]: _, ...updatedQty } = quantities;
@@ -138,9 +146,7 @@ const Cart = () => {
       )}
 
       <button
-        onClick={() => {
-          alert("Order Successfully.");
-        }}
+        onClick={OrderHandler}
         className="mt-6 px-6 py-2 bg-gray-900 hover:cursor-pointer text-white rounded hover:bg-gray-800 disabled:opacity-50"
       >
         Place Order

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FilterBar from "../components/FilterBar";
 
-const Home = () => {
+const Home = ({ searchedresults }) => {
   const [itemList, setItemlist] = useState([]);
   const getData = async () => {
     const res = await axios.get("https://fakestoreapi.com/products");
@@ -17,7 +17,9 @@ const Home = () => {
 
   return (
     <div>
-      <FilterBar itemList={itemList} />
+      <FilterBar
+        itemList={searchedresults.length ? searchedresults : itemList}
+      />
     </div>
   );
 };
