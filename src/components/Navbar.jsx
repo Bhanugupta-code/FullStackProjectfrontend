@@ -31,9 +31,17 @@ const Navbar = ({ itemList, setsearchedresults }) => {
   return (
     <nav className="bg-gray-900 shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="text-3xl sm:text-4xl text-white uppercase font-extrabold tracking-wide">
-          QTN
-        </h1>
+        <h1 className="relative text-2xl sm:text-3xl font-bold tracking-wider 
+               bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400 
+               bg-clip-text text-transparent 
+               drop-shadow-[0_0_8px_rgba(56,189,248,0.6)] 
+               hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] 
+               transition duration-500 ease-in-out cursor-pointer">
+  <span className="uppercase">CLICK</span>
+  <span className="text-pink-400 drop-shadow-[0_0_6px_rgba(236,72,153,0.7)]">n</span>
+  <span className="uppercase">Buy</span>
+</h1>
+
 
         <div className="flex items-center gap-4">
           <button

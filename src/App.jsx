@@ -6,12 +6,14 @@ import Navbar from "./components/Navbar";
 import axios from "axios";
 import ProductDetails from "./pages/ProductDetails";
 import Loader from "./components/Loader";
+import AddProducts from "./components/AddProducts";
+import Admin from "./pages/Admin";
 
 const App = () => {
   const [itemList, setItemlist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchedresults, setsearchedresults] = useState([]);
-
+  const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
   useEffect(() => {
     const timeout = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timeout);
@@ -23,7 +25,7 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get("https://fakestoreapi.com/products");
+      const res = await axios.get(`${BACKEND_LINK}/admin`);
       console.log("Data received");
       setItemlist(res.data);
     } catch (error) {
@@ -45,6 +47,7 @@ const App = () => {
         />
         <Route path="/cart" element={<Cart />} />
         <Route path="/productdetails" element={<ProductDetails />} />
+        <Route path="/admin/products" element={<Admin />} />
       </Routes>
     </Router>
   );

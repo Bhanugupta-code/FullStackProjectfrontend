@@ -45,7 +45,7 @@ const FilterBar = ({ itemList, data }) => {
               <option value="men's clothing">Men's Clothing</option>
               <option value="women's clothing">Women's Clothing</option>
               <option value="jewelery">Jewellery</option>
-              <option value="electronics">Electronics</option>
+              <option value="Electronics">Electronics</option>
             </select>
           </div>
         </div>

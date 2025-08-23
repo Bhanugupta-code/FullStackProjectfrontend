@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FilterBar from "../components/FilterBar";
+const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
 
 const Home = ({ searchedresults }) => {
   const [itemList, setItemlist] = useState([]);
   const getData = async () => {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    console.log(res.data);
+    const res = await axios.get(`${BACKEND_LINK}/admin`);
+    console.log(res);
     console.log("Data received");
     setItemlist(res.data);
   };

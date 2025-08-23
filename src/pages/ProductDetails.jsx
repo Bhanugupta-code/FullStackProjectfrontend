@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -9,6 +10,7 @@ const ProductDetails = () => {
     navigate("/cart", {
       state: { product },
     });
+    console.log(product);
   };
   return (
     <div className="container my-10 mx-auto bg-gray-300 rounded-xl shadow-md">
@@ -16,13 +18,13 @@ const ProductDetails = () => {
         <div className="md:w-1/3 flex items-center justify-center">
           <img
             className="w-full rounded-2xl max-h-[400px]"
-            src={product?.image}
+            src={`${BACKEND_LINK}/image/${product?.image}`}
             alt={product?.title}
           />
         </div>
 
         <div className="md:w-2/3 space-y-4">
-          <h1 className="text-3xl font-bold text-gray-800">{product?.title}</h1>
+          <h1 className="text-3xl font-bold text-gray-800">{product?.name}</h1>
           <p className="text-green-700 text-xl font-semibold">
             $ {product?.price}
           </p>
@@ -32,7 +34,7 @@ const ProductDetails = () => {
           <p className="text-gray-700">{product?.description}</p>
           <div className="flex items-center gap-1 text-yellow-500 text-lg">
             {Array.from({ length: 5 }, (_, index) => {
-              const rating = product?.rating?.rate || 0;
+              const rating = product?.rate || 0;
               if (index + 1 <= Math.floor(rating)) {
                 return <span key={index}>★</span>;
               } else if (index + 0.5 < rating) {
@@ -42,7 +44,7 @@ const ProductDetails = () => {
               }
             })}
             <span className="text-gray-600 text-sm ml-2">
-              ({product?.rating?.count} reviews)
+              ({product?.count} reviews)
             </span>
           </div>
 

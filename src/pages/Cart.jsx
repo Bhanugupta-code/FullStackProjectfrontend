@@ -3,6 +3,8 @@ import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
+
 
 const CART_KEY = "cartItems";
 const QTY_KEY = "cartQuantities";
@@ -92,20 +94,21 @@ const Cart = () => {
         <div className="space-y-6">
           {cartProducts.map((item) => (
             <div
-              key={item.id}
+              key={item._id}
               className="bg-gray-100 px-5 py-3 rounded-2xl flex items-center justify-evenly flex-col md:flex-row gap-3"
-            >
+              >
+             { console.log(item._id)}
               <div className="md:w-1/4 w-full flex items-center justify-center">
                 <img
                   className="w-full max-h-[200px] object-contain rounded-2xl"
-                  src={item.image}
+                  src={`${BACKEND_LINK}/image/${item.image}`}
                   alt={item.title}
                 />
               </div>
 
               <div className="md:w-1/3 w-full">
                 <h1 className="text-xl text-center font-bold text-gray-800">
-                  {item.title}
+                  {item.name}
                 </h1>
                 <p className="text-green-700 text-center text-lg font-semibold">
                   $ {item.price}
