@@ -38,7 +38,7 @@ const ProductCard = ({ categoryFilter }) => {
             </div>
           </div>
 
-          <div className="p-2 space-y-2">
+          <div className="p-2 px-4 space-y-2">
             <h2 className="text-lg font-semibold text-gray-800 line-clamp-2 mb-0 group-hover:text-teal-600 transition-colors">
               {data.name}
             </h2>

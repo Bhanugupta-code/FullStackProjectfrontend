@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
 
-
 const CART_KEY = "cartItems";
 const QTY_KEY = "cartQuantities";
 
@@ -26,8 +25,8 @@ const Cart = () => {
   useEffect(() => {
     if (product) {
       setCartProducts((prev) => {
-        const exists = prev.find((p) => p.id === product.id);
-        const updatedCart = exists ? prev : [...prev, product];
+         const unique = prev.filter((p) => p._id !== product._id);
+        const updatedCart = [...unique,product];
         localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
         return updatedCart;
       });
@@ -35,7 +34,7 @@ const Cart = () => {
       setQuantities((prev) => {
         const updatedQty = {
           ...prev,
-          [product.id]: prev[product.id] || 1,
+            [product._id]: prev[product._id] ? prev[product._id] + 1 : 1,
         };
         localStorage.setItem(QTY_KEY, JSON.stringify(updatedQty));
         return updatedQty;
@@ -74,7 +73,7 @@ const Cart = () => {
   };
 
   const removeItem = (id) => {
-    const updatedCart = cartProducts.filter((p) => p.id !== id);
+    const updatedCart = cartProducts.filter((p) => p._id !== id);
     const { [id]: _, ...updatedQty } = quantities;
 
     setCartProducts(updatedCart);
@@ -96,13 +95,12 @@ const Cart = () => {
             <div
               key={item._id}
               className="bg-gray-100 px-5 py-3 rounded-2xl flex items-center justify-evenly flex-col md:flex-row gap-3"
-              >
-             { console.log(item._id)}
+            >
               <div className="md:w-1/4 w-full flex items-center justify-center">
                 <img
                   className="w-full max-h-[200px] object-contain rounded-2xl"
                   src={`${BACKEND_LINK}/image/${item.image}`}
-                  alt={item.title}
+                  alt={item.name}
                 />
               </div>
 
@@ -119,26 +117,26 @@ const Cart = () => {
                 <div className="flex items-center gap-4">
                   <button
                     className="bg-black hover:cursor-pointer text-white rounded-2xl px-2 py-1"
-                    onClick={() => decreaseQty(item.id)}
+                    onClick={() => decreaseQty(item._id)}
                   >
                     <FaMinus size={10} />
                   </button>
                   <span className="text-lg font-semibold">
-                    {quantities[item.id] || 1}
+                    {quantities[item._id] || 1}
                   </span>
                   <button
                     className="bg-black hover:cursor-pointer text-white rounded-2xl px-2 py-1"
-                    onClick={() => increaseQty(item.id)}
+                    onClick={() => increaseQty(item._id)}
                   >
                     <FaPlus size={10} />
                   </button>
                 </div>
               </div>
               <p className="text-lg font-medium">
-                ${(item.price * (quantities[item.id] || 1)).toFixed(2)}
+                ${(item.price * (quantities[item._id] || 1)).toFixed(2)}
               </p>
               <button
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeItem(item._id)}
                 className="text-red-500 hover:cursor-pointer"
               >
                 <MdDelete size={30} />
