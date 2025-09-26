@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
 
-const ProductCard = ({ categoryFilter }) => {
+const ProductCard = ({categoryFilter}) => {
   const navigate = useNavigate();
 
   const productDetailHandler = (data) => {
@@ -13,7 +13,7 @@ const ProductCard = ({ categoryFilter }) => {
 
   return (
     <div className="container mx-auto p-4 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {categoryFilter.map((data, index) => (
+      {Array.isArray(categoryFilter) && categoryFilter.map((data, index) => (
         <div
           key={index}
           onClick={() => productDetailHandler(data)}

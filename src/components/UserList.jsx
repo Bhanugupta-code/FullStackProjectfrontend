@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa6";
 
 const BACKEND_LINK = import.meta.env.VITE_BACKEND_LINK;
 
-const ProductList = () => {
-  const [productListData, setProductListData] = useState([]);
+const UserList = () => {
+  const [userListData, setUserListData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
+  const fetchUsers = async () => {
+    const userData = await axios.get(`${BACKEND_LINK}/user`);
     try {
-      const productData = await axios.get(`${BACKEND_LINK}/products`);
-      setProductListData(productData.data);
+      setUserListData(userData.data);
     } catch (err) {
-      console.error("Error fetching products:", err);
+      console.error("Error fetching users:", err);
     } finally {
       setLoading(false);
     }
   };
 
+  const deleteUser = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      await axios.delete(`${BACKEND_LINK}/user/${id}`);
+      setUserListData((prev) => prev.filter((user) => user._id !== id));
+    } catch (err) {
+      console.error("Error deleting user:", err);
+    }
+  };
+
   useEffect(() => {
-    fetchProducts();
+    fetchUsers();
   }, []);
 
   return (
@@ -27,12 +39,12 @@ const ProductList = () => {
       <div className="bg-white rounded-2xl shadow-lg p-6">
         {/* Title */}
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-       Product List
+          User List
         </h2>
 
         {/* Loader */}
         {loading ? (
-          <p className="text-center text-gray-500">Loading products...</p>
+          <p className="text-center text-gray-500">Loading users...</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
@@ -40,36 +52,33 @@ const ProductList = () => {
                 <tr className="bg-gray-100 text-gray-700 uppercase text-sm font-semibold">
                   <th className="px-4 py-3 text-center">Sr. No.</th>
                   <th className="px-4 py-3">Name</th>
-                  <th className="px-4 py-3">Category</th>
-                  <th className="px-4 py-3">Price</th>
-                  <th className="px-4 py-3 text-center">Image</th>
+                  <th className="px-4 py-3">Email</th>
+                  <th className="px-4 py-3">Password</th>
+                  <th className="px-4 py-3 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {productListData.length > 0 ? (
-                  productListData.map((item, index) => (
+                {userListData.length > 0 ? (
+                  userListData.map((user, index) => (
                     <tr
-                      key={index}
+                      key={user._id}
                       className="hover:bg-gray-50 transition-colors"
                     >
                       <td className="px-4 py-3 text-center font-medium text-gray-600">
                         {index + 1}
                       </td>
                       <td className="px-4 py-3 font-semibold text-gray-800 capitalize">
-                        {item.name}
+                        {user.name}
                       </td>
-                      <td className="px-4 py-3 text-gray-600 capitalize">
-                        {item.category}
-                      </td>
-                      <td className="px-4 py-3 font-semibold text-green-600">
-                        ${item.price}
-                      </td>
+                      <td className="px-4 py-3 text-gray-600">{user.email}</td>
+                      <td className="px-4 py-3 text-gray-500">{user.password}</td>
                       <td className="px-4 py-3 flex justify-center">
-                        <img
-                          className="h-16 w-16 object-cover rounded-lg shadow-sm border border-gray-200"
-                          src={`${BACKEND_LINK}/image/${item.image}`}
-                          alt={item.name}
-                        />
+                        <button
+                          onClick={() => deleteUser(user._id)}
+                          className="p-2 rounded-full hover:bg-red-100 transition"
+                        >
+                          <FaTrash className="text-gray-600 hover:text-red-500 text-lg" />
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -79,7 +88,7 @@ const ProductList = () => {
                       colSpan="5"
                       className="px-4 py-6 text-center text-gray-500"
                     >
-                      No products available
+                      No users available
                     </td>
                   </tr>
                 )}
@@ -92,4 +101,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default UserList;
